@@ -19,11 +19,19 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 
 console.log("Loading and processing augmenting data - " + new Date());
 
+////////////////////////////////
+// LOAD DOCUMENTS
+// recursively load all documents
+// load all Markdown files ending in .md
+// ignore all other files to prevent warnings
+
 const docLoader = new DirectoryLoader(
   "./SOURCE_DOCUMENTS",
   {
     ".md": (path) => new TextLoader(path),
-  }
+  },
+  true,
+  UnknownHandling.Ignore
 );
 const docs = await docLoader.load();
 
